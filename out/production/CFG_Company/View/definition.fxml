@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="550.0" style="-fx-background-color: #e9ecef;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.DefinitionController">
+   <children>
+      <VBox alignment="CENTER" layoutX="19.0" layoutY="28.0" prefHeight="650.0" prefWidth="450.0" spacing="10.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 20, 0, 0, 10);">
+         <children>
+            <!-- Logo Section -->
+            <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <!-- Replace this with the actual path to your logo file -->
+                  <Image url="@../image/logo.png" />
+               </image>
+            </ImageView>
+            <Label focusTraversable="false" text="About Code For Gaza Company" textFill="#343a40">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </Label>
+            <Text fx:id="descriptionText" fill="#6c757d" style="-fx-text-alignment: center;" text="At Code For Gaza Company, we believe in the power of technical education to build a better future. Our mission is to empower students by providing specialized and high-quality training programs in various programming fields. This application aims to manage the admission process for new students in an organized and effective manner, ensuring an exceptional educational experience from the moment they join. We strive to build a new generation of programmers capable of innovation and contributing to the global job market." wrappingWidth="450.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            
+            <!-- Developer and Project Information Section -->
+            <VBox alignment="CENTER" spacing="5.0" style="-fx-background-color: #f8f9fa; -fx-background-radius: 8; -fx-border-color: #e9ecef; -fx-border-radius: 8; -fx-border-width: 1;">
+               <children>
+                  <Label focusTraversable="false" text="Developer: Ahmed M. Y. Farani" textFill="#495057">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
+                  </Label>
+                  <Label focusTraversable="false" text="Engineer: Mahmoud M. M. Ashour" textFill="#495057">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
+                  </Label>
+                  <Label focusTraversable="false" text="University: Al-Aqsa University" textFill="#495057">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></Label>
+                  <Label focusTraversable="false" text="College: Computers and Information Technology" textFill="#495057">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></Label>
+                  <Label focusTraversable="false" text="Course: Visual Programming" textFill="#495057">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+            
+            <!-- Social Media Links -->
+            <Label focusTraversable="false" text="Follow Us" textFill="#343a40">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </Label>
+            <HBox alignment="CENTER" spacing="25.0">
+               <children>
+                  <Hyperlink fx:id="link_Insta" focusTraversable="false" onAction="#insta" style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Instagram" textFill="#e93d7e" underline="true">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Hyperlink>
+                  <Hyperlink fx:id="link_Face" focusTraversable="false" onAction="#face" style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Facebook" textFill="#1877F2" underline="true">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Hyperlink>
+               </children>
+            </HBox>
+            
+            <!-- Back Button -->
+            <Button fx:id="btn_Back" focusTraversable="false" mnemonicParsing="false" onAction="#back" prefWidth="180.0" style="-fx-background-color: #007bff; -fx-background-radius: 8; -fx-cursor: hand; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px;">
+               <text>Back</text>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>
