@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="CFG_Company">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/CFG_Company.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

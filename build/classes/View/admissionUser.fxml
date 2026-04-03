@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="400.0" style="-fx-background-color: #F5F5F5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AdmissionUserController">
+   <children>
+      <VBox alignment="CENTER_LEFT" layoutX="24.0" layoutY="24.0" prefHeight="620.0" prefWidth="350.0" spacing="15.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/logo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <Label alignment="CENTER" focusTraversable="false" prefHeight="30.0" prefWidth="318.0" text="Admission Request" textFill="#212121">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </Label>
+            <TextField fx:id="tf_Id" focusTraversable="false" promptText="ID Student" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #E0E0E0; -fx-background-color: #F8F8F8; -fx-prompt-text-fill: #A0A0A0;">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextField>
+            <TextField fx:id="tf_Fname" focusTraversable="false" promptText="First Name" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #E0E0E0; -fx-background-color: #F8F8F8; -fx-prompt-text-fill: #A0A0A0;">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextField>
+            <TextField fx:id="tf_Lname" focusTraversable="false" promptText="Last Name" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #E0E0E0; -fx-background-color: #F8F8F8; -fx-prompt-text-fill: #A0A0A0;">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextField>
+            <TextField fx:id="tf_Email" focusTraversable="false" promptText="Email" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #E0E0E0; -fx-background-color: #F8F8F8; -fx-prompt-text-fill: #A0A0A0;">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextField>
+            <TextField fx:id="tf_Phone" focusTraversable="false" promptText="Phone" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #E0E0E0; -fx-background-color: #F8F8F8; -fx-prompt-text-fill: #A0A0A0;">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextField>
+            <DatePicker fx:id="tf_Date" focusTraversable="false" promptText="Date of Birth" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #E0E0E0; -fx-background-color: #F8F8F8; -fx-prompt-text-fill: #A0A0A0;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></DatePicker>
+            <HBox spacing="20.0">
+               <children>
+                  <Label text="Gender:" textFill="#424242" />
+                  <RadioButton fx:id="gender_Male" focusTraversable="false" mnemonicParsing="false" text="Male" textFill="#212121">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="Gender" />
+                     </toggleGroup>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </RadioButton>
+                  <RadioButton fx:id="gender_Female" focusTraversable="false" mnemonicParsing="false" text="Female" textFill="#212121" toggleGroup="$Gender">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></RadioButton>
+               </children>
+            </HBox>
+            <ComboBox fx:id="cb_Course" focusTraversable="false" prefWidth="250.0" promptText="Select Course" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #E0E0E0; -fx-background-color: #F8F8F8; -fx-prompt-text-fill: #A0A0A0;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ComboBox>
+            <TextArea fx:id="tf_Address" focusTraversable="false" prefHeight="97.0" prefWidth="290.0" promptText="Address" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #E0E0E0; -fx-background-color: #F8F8F8; -fx-prompt-text-fill: #A0A0A0;">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextArea>
+            <HBox alignment="CENTER" spacing="10.0">
+               <children>
+                  <Button fx:id="btn_Add" focusTraversable="false" mnemonicParsing="false" onAction="#addStudent" prefWidth="100.0" style="-fx-background-color: #28a745; -fx-background-radius: 8; -fx-cursor: hand;" text="Add" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="btn_Clear" focusTraversable="false" mnemonicParsing="false" onAction="#clear" prefWidth="100.0" style="-fx-background-color: #dc3545; -fx-background-radius: 8; -fx-cursor: hand;" text="Clear" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="36.0" prefWidth="310.0" spacing="20.0">
+               <children>
+                  <Hyperlink fx:id="Definition_link" focusTraversable="false" onAction="#goToDefinition" text="About Us" />
+                  <Hyperlink fx:id="back_link" focusTraversable="false" onAction="#backLogin" text="Back to Login" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>
