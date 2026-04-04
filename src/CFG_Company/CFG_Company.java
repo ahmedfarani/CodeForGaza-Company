@@ -1,9 +1,3 @@
-// -----------------------------------------------------------------------------
-// ---> Student Name: Ahmed Mohammed Al-Farani
-// ---> Student ID: 1320236338
-// ---> Engeneer Name: Mahmoud Ashour
-// ---> Final Project: Code For Gaza Company
-// -----------------------------------------------------------------------------
 package CFG_Company;
 
 import Model.Utils;
@@ -42,10 +36,3 @@ public class CFG_Company extends Application {
 
     }
 }
-
-// -----------------------------------------------------------------------------
-// ---> Student Name: Ahmed Mohammed Al-Farani
-// ---> Student ID: 1320236338
-// ---> Engeneer Name: Mahmoud Ashour
-// ---> Final Project: Code For Gaza Company
-// -----------------------------------------------------------------------------
