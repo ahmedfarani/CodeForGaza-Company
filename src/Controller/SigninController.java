@@ -1,12 +1,5 @@
-// -----------------------------------------------------------------------------
-// ---> Student Name: Ahmed Mohammed Al-Farani
-// ---> Student ID: 1320236338
-// ---> Engeneer Name: Mahmoud Ashour
-// ---> Final Project: Code For Gaza Company
-// -----------------------------------------------------------------------------
 package Controller;
 
-import DataBase.JDBC;
 import Model.MD5Encryptor;
 import Model.Utils;
 import java.sql.*;
@@ -14,6 +7,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -63,43 +57,28 @@ public class SigninController implements Initializable {
             return;
         }
 
-        try {
-            String encryptedPassword = MD5Encryptor.encrypt(password);
+        String encryptedPassword=MD5Encryptor.encrypt(password);
 
-            JDBC.getConnection();
+        DataBase.UserDAO userDAQ = new DataBase.UserDAO();
+        String role=userDAQ.authenticateUser(username, encryptedPassword);
 
-            String query = "SELECT * FROM users WHERE username = ? AND password = ?";
-            PreparedStatement pstmt = JDBC.prepareStatement(query);
-            pstmt.setString(1, username);
-            pstmt.setString(2, encryptedPassword);
+        if (role != null){
+            Parent root;
+             if ("admin".equalsIgnoreCase(role)){
+                 root = FXMLLoader.load(getClass().getResource("/View/admissionAdmin.fxml"));
+             } else{
+                 root = FXMLLoader.load(getClass().getResource("/View/admissionUser.fxml"));
+             }
 
-            ResultSet res = pstmt.executeQuery();
+             Scene s = new Scene(root);
+             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-            if (res.next()) {
-                String role = res.getString("role");
+            Utils.setSceneKeyHandler(s);
 
-                Parent root;
-                if ("admin".equalsIgnoreCase(role)) {
-                    root = FXMLLoader.load(getClass().getResource("/View/admissionAdmin.fxml"));
-                } else {
-                    root = FXMLLoader.load(getClass().getResource("/View/admissionUser.fxml"));
-                }
-
-                Scene s = new Scene(root);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-                Utils.setSceneKeyHandler(s);
-
-                stage.setScene(s);
-                stage.show();
-
-            } else {
-                showDialog("Login Failed", "Invalid username or password.");
-            }
-
-        } catch (SQLException e) {
-            showDialog("Database Error", "Error connecting to database: " + e.getMessage());
-            e.printStackTrace();
+            stage.setScene(s);
+            stage.show();
+        } else {
+            showDialog("Login Failed", "Invalid username or password.");
         }
     }
 
@@ -172,10 +151,3 @@ public class SigninController implements Initializable {
         stage.show();
     }
 }
-
-// -----------------------------------------------------------------------------
-// ---> Student Name: Ahmed Mohammed Al-Farani
-// ---> Student ID: 1320236338
-// ---> Engeneer Name: Mahmoud Ashour
-// ---> Final Project: Code For Gaza Company
-// -----------------------------------------------------------------------------

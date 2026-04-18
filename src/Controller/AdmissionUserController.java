@@ -1,17 +1,13 @@
-// -----------------------------------------------------------------------------
-// ---> Student Name: Ahmed Mohammed Al-Farani
-// ---> Student ID: 1320236338
-// ---> Engeneer Name: Mahmoud Ashour
-// ---> Final Project: Code For Gaza Company
-// -----------------------------------------------------------------------------
 package Controller;
 
-import DataBase.JDBC;
+import DataBase.StudentDAO;
 import Model.Utils;
 import java.sql.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import Model.student;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -32,7 +28,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
@@ -71,29 +66,16 @@ public class AdmissionUserController implements Initializable {
     @FXML
     private Hyperlink back_link;
 
+    private StudentDAO studentDAO = new StudentDAO();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         loadCourses();
     }
 
     private void loadCourses() {
-        ObservableList<String> courseList = FXCollections.observableArrayList();
-        String query = "SELECT course_name FROM courses";
-
-        try {
-            JDBC.getConnection();
-            PreparedStatement pstmt = JDBC.prepareStatement(query);
-            ResultSet res = pstmt.executeQuery();
-
-            while (res.next()) {
-                courseList.add(res.getString("course_name"));
-            }
-
-            cb_Course.setItems(courseList);
-
-        } catch (SQLException e) {
-            System.out.println("Error loading courses: " + e.getMessage());
-        }
+        ObservableList<String> courseList = FXCollections.observableArrayList(studentDAO.getAllCourseName());
+        cb_Course.setItems(courseList);
     }
 
     @FXML
@@ -103,46 +85,25 @@ public class AdmissionUserController implements Initializable {
             return;
         }
 
-        try {
-            Integer id = Integer.parseInt(tf_Id.getText());
-            String f_name = tf_Fname.getText();
-            String l_name = tf_Lname.getText();
-            String email = tf_Email.getText();
-            String phone = tf_Phone.getText();
-            String date = tf_Date.getValue().toString();
-            Toggle selectedToggle = Gender.getSelectedToggle();
-            String gender = "";
-            if (selectedToggle != null) {
-                RadioButton selectedRadio = (RadioButton) selectedToggle;
-                gender = selectedRadio.getText();
+        try {String gender = "";
+            if (Gender.getSelectedToggle() != null) {
+                gender = ((RadioButton) Gender.getSelectedToggle()).getText();
             }
-            String selectedCourse = cb_Course.getValue();
-            String address = tf_Address.getText();
 
-            JDBC.getConnection();
+            student s = new student(
+                    Integer.parseInt(tf_Id.getText()), tf_Fname.getText(), tf_Lname.getText(),
+                    tf_Email.getText(), tf_Phone.getText(), tf_Date.getValue().toString(),
+                    gender, cb_Course.getValue(), tf_Address.getText()
+            );
 
-            String query = "INSERT INTO student (id, F_name, L_name, email, phone, date, gender, course, address) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement pstmt = JDBC.prepareStatement(query);
-            pstmt.setInt(1, id);
-            pstmt.setString(2, f_name);
-            pstmt.setString(3, l_name);
-            pstmt.setString(4, email);
-            pstmt.setString(5, phone);
-            pstmt.setString(6, date);
-            pstmt.setString(7, gender);
-            pstmt.setString(8, selectedCourse);
-            pstmt.setString(9, address);
-
-            int rowsAffected = pstmt.executeUpdate();
-            if (rowsAffected > 0) {
-                showDialog("Success", "Student data saved successfully!");
+            if (studentDAO.addStudent(s)) {
+                showDialog("Success", "Student data saved successfuy!");
                 clearFields();
             } else {
-                showDialog("Error", "Failed to save student data.");
+                showDialog("Error", "Failed to save student data. ID might already exist.");
             }
-
-        } catch (SQLException | NumberFormatException e) {
-            showDialog("Database Error", "Error saving data: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            showDialog("Error", "Please enter valid numbers in ID field.");
         }
     }
 
@@ -244,10 +205,3 @@ public class AdmissionUserController implements Initializable {
         stage.show();
     }
 }
-
-// -----------------------------------------------------------------------------
-// ---> Student Name: Ahmed Mohammed Al-Farani
-// ---> Student ID: 1320236338
-// ---> Engeneer Name: Mahmoud Ashour
-// ---> Final Project: Code For Gaza Company
-// -----------------------------------------------------------------------------
