@@ -1,9 +1,3 @@
-// -----------------------------------------------------------------------------
-// ---> Student Name: Ahmed Mohammed Al-Farani
-// ---> Student ID: 1320236338
-// ---> Engeneer Name: Mahmoud Ashour
-// ---> Final Project: Code For Gaza Company
-// -----------------------------------------------------------------------------
 package Controller;
 
 import Model.Utils;
@@ -77,10 +71,3 @@ public class DefinitionController implements Initializable {
         stage.show();
     }
 }
-
-// -----------------------------------------------------------------------------
-// ---> Student Name: Ahmed Mohammed Al-Farani
-// ---> Student ID: 1320236338
-// ---> Engeneer Name: Mahmoud Ashour
-// ---> Final Project: Code For Gaza Company
-// -----------------------------------------------------------------------------

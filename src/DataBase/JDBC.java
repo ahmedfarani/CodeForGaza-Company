@@ -1,37 +1,24 @@
-// -----------------------------------------------------------------------------
-// ---> Student Name: Ahmed Mohammed Al-Farani
-// ---> Student ID: 1320236338
-// ---> Engeneer Name: Mahmoud Ashour
-// ---> Final Project: Code For Gaza Company
-// -----------------------------------------------------------------------------
 package DataBase;
 
 import java.sql.*;
 
 public class JDBC {
 
-    static public Connection con;
-    static public Statement stmt;
-    static public ResultSet res;
+    static private Connection con;
     static String className = "com.mysql.cj.jdbc.Driver";
     static String url = "jdbc:mysql://127.0.0.1:4306/code_company?user=root&password=";
 
-    public JDBC() {
-        try {
-            Class.forName(className);
-            con = DriverManager.getConnection(url);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    private JDBC() {}
 
     public static Connection getConnection() {
         try {
             if (con == null || con.isClosed()) {
                 System.out.println("Reconnecting to the database...");
+                Class.forName(className);
                 con = DriverManager.getConnection(url);
             }
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Database Connection Failed!");
             e.printStackTrace();
         }
         return con;
@@ -47,10 +34,3 @@ public class JDBC {
         return pstmt;
     }
 }
-
-// -----------------------------------------------------------------------------
-// ---> Student Name: Ahmed Mohammed Al-Farani
-// ---> Student ID: 1320236338
-// ---> Engeneer Name: Mahmoud Ashour
-// ---> Final Project: Code For Gaza Company
-// -----------------------------------------------------------------------------

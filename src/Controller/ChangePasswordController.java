@@ -1,12 +1,5 @@
-// -----------------------------------------------------------------------------
-// ---> Student Name: Ahmed Mohammed Al-Farani
-// ---> Student ID: 1320236338
-// ---> Engeneer Name: Mahmoud Ashour
-// ---> Final Project: Code For Gaza Company
-// -----------------------------------------------------------------------------
 package Controller;
 
-import DataBase.JDBC;
 import Model.MD5Encryptor;
 import Model.Utils;
 import java.sql.*;
@@ -68,44 +61,21 @@ public class ChangePasswordController implements Initializable {
             return;
         }
 
-        if (currentPassword.equals(newPassword)) {
-            showDialog("Error", "The new password must be different from the current one.");
-            return;
-        }
+        String encryptedOld = MD5Encryptor.encrypt(currentPassword);
+        String encryptedNew = MD5Encryptor.encrypt(newPassword);
 
-        try {
-            String encryptedCurrentPassword = MD5Encryptor.encrypt(currentPassword);
+        DataBase.UserDAO userDAO = new DataBase.UserDAO();
+        boolean success = userDAO.updatePassword(username, encryptedOld, encryptedNew);
 
-            JDBC.getConnection();
-            String sqlSelect = "SELECT password FROM users WHERE username = ? And password = ?";
-            PreparedStatement pstmt = JDBC.prepareStatement(sqlSelect);
-            pstmt.setString(1, username);
-            pstmt.setString(2, encryptedCurrentPassword);
-
-            ResultSet res = pstmt.executeQuery();
-            if (res.next()) {
-                String encryptedNewPassword = MD5Encryptor.encrypt(newPassword);
-
-                String sqlUpdate = "UPDATE users SET password = ? WHERE username = ?";
-
-                PreparedStatement updatePstmt = JDBC.prepareStatement(sqlUpdate);
-                updatePstmt.setString(1, encryptedNewPassword);
-                updatePstmt.setString(2, username);
-
-                int rowsAffected = updatePstmt.executeUpdate();
-                if (rowsAffected > 0) {
-                    showDialog("Success", "Password changed successfully!");
-
-                    backLogin(event);
-                } else {
-                    showDialog("Error", "Failed to change password. Please try again.");
-                }
-            } else {
-                showDialog("Error", "Incorrect User Namwe or current password.");
+        if (success){
+            showDialog("Success","Password changed successfuly");
+            try {
+                backLogin(event);
+            } catch (IOException e){
+                e.printStackTrace();
             }
-        } catch (SQLException | IOException e) {
-            showDialog("Database Error", "An error occurred: " + e.getMessage());
-            e.printStackTrace();
+        } else {
+            showDialog("Error", "Invalid username or current password.");
         }
     }
 
@@ -152,10 +122,3 @@ public class ChangePasswordController implements Initializable {
     }
 
 }
-
-// -----------------------------------------------------------------------------
-// ---> Student Name: Ahmed Mohammed Al-Farani
-// ---> Student ID: 1320236338
-// ---> Engeneer Name: Mahmoud Ashour
-// ---> Final Project: Code For Gaza Company
-// -----------------------------------------------------------------------------

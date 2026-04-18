@@ -1,12 +1,5 @@
-// -----------------------------------------------------------------------------
-// ---> Student Name: Ahmed Mohammed Al-Farani
-// ---> Student ID: 1320236338
-// ---> Engeneer Name: Mahmoud Ashour
-// ---> Final Project: Code For Gaza Company
-// -----------------------------------------------------------------------------
 package Controller;
 
-import DataBase.JDBC;
 import Model.MD5Encryptor;
 import Model.Utils;
 import java.sql.*;
@@ -59,36 +52,26 @@ public class SignUpController implements Initializable {
             showDialog("Error", "All fields are required!");
             return;
         }
-        try {
-            JDBC.getConnection();
 
-            String encryptedPassword = MD5Encryptor.encrypt(password);
-            String checkUserQuery = "SELECT COUNT(*) FROM users WHERE username = ?";
-            PreparedStatement checkPstmt = JDBC.prepareStatement(checkUserQuery);
-            checkPstmt.setString(1, username);
-            ResultSet res = checkPstmt.executeQuery();
+        String encryptedPassword = MD5Encryptor.encrypt(password);
 
-            if (res.next() && res.getInt(1) > 0) {
-                showDialog("Registration error", "This username already exists. Please choose another username.");
-                return;
-            }
-            String query = "INSERT INTO users (FullName, username, password, role) VALUES (?, ?, ?, ?)";
+        DataBase.UserDAO userDAO = new DataBase.UserDAO();
 
-            PreparedStatement pstmt = JDBC.prepareStatement(query);
-            pstmt.setString(1, FullName);
-            pstmt.setString(2, username);
-            pstmt.setString(3, encryptedPassword);
-            pstmt.setString(4, "user");
+        if (userDAO.isUsernameTaken(username)){
+            showDialog("Registration Error","This username already exists. Please choose another username.");
+        }
 
-            int rowsAffected = pstmt.executeUpdate();
-            if (rowsAffected > 0) {
-                showDialog("Success", "Registration successful!");
+        boolean isRegisterd=userDAO.registerUser(FullName, username, encryptedPassword, "user");
+
+        if (isRegisterd){
+            showDialog("Success", "Registration successful!");
+            try {
                 goToLogin(event);
-            } else {
-                showDialog("Error", "Failed to register user.");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } else {
+            showDialog("Error", "Failed to register user.");
         }
     }
 
@@ -131,10 +114,3 @@ public class SignUpController implements Initializable {
         stage.show();
     }
 }
-
-// -----------------------------------------------------------------------------
-// ---> Student Name: Ahmed Mohammed Al-Farani
-// ---> Student ID: 1320236338
-// ---> Engeneer Name: Mahmoud Ashour
-// ---> Final Project: Code For Gaza Company
-// -----------------------------------------------------------------------------
